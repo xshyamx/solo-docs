@@ -28,7 +28,7 @@ contextutils.LoggerFrom(ctx).Infow("Downloading repo archive",
 ### Interfaces
 
 Define interfaces when writing new utilities/modules that allow for mocking out dependencies and unit testing. 
-The default struct implementation for an interface should be have the same name, with a lowercase first letter. 
+The default struct implementation for an interface should have the same name, with a lowercase first letter. 
 A constructor should be used for instantiation. The interface, struct, and constructor should be near the top of a file. 
 
 ```go
