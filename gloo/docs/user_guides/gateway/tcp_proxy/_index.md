@@ -35,16 +35,13 @@ apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    gloo: testrunner
-  name: testrunner
+    gloo: tcp-echo
+  name: tcp-echo
 spec:
   containers:
-  - image: soloio/testrunner:testing-8671e8b9
+  - image: soloio/tcp-echo:latest
     imagePullPolicy: IfNotPresent
-    command:
-      - sleep
-      - "36000"
-    name: testrunner
+    name: tcp-echo
   restartPolicy: Always
 ```
 ```bash
@@ -189,7 +186,9 @@ curl -v telnet://$(minikube ip):30197
 *   Trying 192.168.64.13...
 * TCP_NODELAY set
 * Connected to 192.168.64.13 (192.168.64.13) port 30197 (#0)
-* Closing connection 0
-```
 
+```
 note: The node port was inserted in the above command following the ip
+
+Now the terminal is waiting for input, all input entered will be echo'd back. And an inspection of the logs from the pod will reveal that the data
+is in fact being proxied through.
