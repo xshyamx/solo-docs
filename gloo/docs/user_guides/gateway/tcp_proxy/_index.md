@@ -181,7 +181,7 @@ The important part here is the entry on port `8000` for our tcp service. Once th
 service port entry and save it for later.
 
 The next and final step is routing to the service.
-This step assumes you are running on a local minikube instance
+This step assumes you are running on a local minikube instance.
 ```bash
 curl -v telnet://$(minikube ip):30197
 
