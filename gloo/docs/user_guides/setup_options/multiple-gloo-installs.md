@@ -8,7 +8,7 @@ weight: 70
 
 In the default deployment scenario, a single deployment of the Gloo control plane and Envoy proxy are installed for the entire cluster. However, in some cases, it may be desirable to deploy multiple instances of the Gloo control plane and proxies in a single cluster.
 
-If multiple tenants or applications want control over their own instance of Gloo. Some deployment scenarios may involve a Gloo-per-application architecture. Additionally, different Gloo instances living in their own namespace may be given different levels of RBAC permissions.
+This is useful when multiple tenants or applications want control over their own instance of Gloo. Some deployment scenarios may involve a Gloo-per-application architecture. Additionally, different Gloo instances living in their own namespace may be given different levels of RBAC permissions.
 
 In this document, we will review how to deploy multiple instances of Gloo to their own namespaces within a single Kubernetes cluster. 
 
@@ -44,7 +44,6 @@ Now, let's install Gloo:
 ```bash
 # create the namespace for our first gloo deployment
 kubectl create ns gloo1
-
 
 # if you have not already added the gloo helm repo
 helm repo add gloo https://storage.googleapis.com/solo-public-helm
@@ -103,9 +102,8 @@ settings:
 Now, let's install Gloo for the second time:
 
 ```bash
-# create the namespace for our first gloo deployment
+# create the namespace for our second gloo deployment
 kubectl create ns gloo2
-
 
 # deploy gloo resources to gloo2 with our value overrides
 helm template gloo --namespace gloo2 --values gloo2-overrides.yaml  | k apply -f - -n gloo2
@@ -142,4 +140,4 @@ gloo2-gloo-9977           53s
 
 And that's it! We can now create routes for Gloo #1 by creating our Virtual Services in the `gloo1` namespace, and routes for Gloo #2 by creating Virtual Services in the `gloo2` namespace. We can add `watchNamespaces` to our liking; the only catch is that a Virtual Service which lives in a shared namespace will be applied to both gateways (which can lead to undesired behavior if this was not the intended effect).
 
-> Warning: When uninstalling a single instance of Gloo when multiple instances are installed, you should only delete the namespace into which that instance is installed. Running `glooctl uninstall` can cause cluster-wide resources to be deleted, which will break any Gloo installation in your cluster
+> Warning: When uninstalling a single instance of Gloo when multiple instances are installed, you should only delete the namespace into which that instance is installed. Running `glooctl uninstall` can cause cluster-wide resources to be deleted, which will break any remaining Gloo installation in your cluster
