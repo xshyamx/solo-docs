@@ -124,7 +124,7 @@ For users, this will provide the ability to migrate between service mesh provide
             <td align=center>N/A</td>
         </tr>
         <tr>
-            <td rowspan=3><B>Observibility</B></td>
+            <td rowspan=3><B>Observability</B></td>
             <td><B>Metrics via Prometheus</B></td>
             <td align=center>✔</td>
             <td align=center>N/A</td>
